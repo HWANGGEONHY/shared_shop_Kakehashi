@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
+
+<head>
+	<title th:text="#{top}+' | '+ #{shop.title}"> </title>
+	<meta charset="UTF-8" />
+</head>
+
+<body>
+
+	<div class="slider">
+		<div class="slide-items">
+			<div><a style="display: inline-block; width: 480px; height: 320px;" th:href="@{/client/item/list(categoryId=0,itemName=夏)}"><img style="margin-left: 50%; width: 480px; height: 320px;" src="images/unagi.jpg"></a>
+			</div>
+			<div><a style="display: inline-block; width: 480px; height: 320px;" th:href="@{/client/item/list(categoryId=9,itemName=)}"><img style="margin-left: 50%; width: 480px; height: 320px;" src="images/kyanpu.jpg"></a>
+			</div>
+			<div><a style="display: inline-block; width: 480px; height: 320px;" th:href="@{/client/item/list(categoryId=7,itemName=)}"><img style="margin-left: 50%; width: 480px; height: 320px;" src="images/interia.jpg"></a>
+			</div>
+			<div><a style="display: inline-block; width: 480px; height: 320px;" th:href="@{/client/item/list(categoryId=0,itemName=キャンプ)}"><img style="margin-left: 50%; width: 480px; height: 320px;" src="images/autodoa.jpg"></a>
+			</div>
+		</div>
+	</div>
+
+	<div>
+
+		<h2 class="title">
+			<span th:if="${sortType==1}" th:text="#{sort.latest.title}"></span>
+			<span th:if="${sortType==2 || sortType==null}" th:text="#{sort.hotsell.title}"></span>
+		</h2>
+	</div>
+
+	<div th:if="${#lists.isEmpty(items)}">
+		<p th:text="#{msg.client.item.list.none}"></p>
+	</div>
+
+	<div class="itemSlider">
+		<th:block th:each="item, status: ${items}" th:if="${status.count le 10}">
+			<!--/* 1件分の商品情報 */-->
+			<div class="multiple-items">
+				<div class="item">
+					<div class="item_name" th:text="|${status.count} 位： ${item.name}|"></div>
+					<a th:href="@{/client/item/detail/}+${item.id}">
+
+					<!--髙橋の編集06/26-->
+						<img th:src="@{/images/items/{image}(image=${item.image})}" th:if="${item.image != null}" />
+
+						<img th:src="@{/images/common/no_image.jpg}" th:if="${item.image == null}" />
+					</a>
+				</div>
+			</div>
+		</th:block>
+	</div>
+
+	<!-- ここからslick処理 -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<!-- slickのCSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.css">
+
+	<style type="text/css">
+		.slider {
+			margin: 0 auto;
+		}
+
+		.slide-items img {
+			width: 50%;
+			margin: 0 auto;
+			object-fit: cover;
+		}
+
+		.itemSlider {
+			margin: 0 auto;
+			object-fit: cover;
+		}
+		
+		.slick-prev:before,
+		.slick-next:before {
+			color: black;
+		}
+
+		.slick-dots li button:before {
+			font-size: 18px;
+			top: 15px;
+		}
+
+		.slick-prev {
+			left: 0px;
+			z-index: 100;
+		}
+
+		.slick-next {
+			right: 0px;
+			z-index: 100;
+		}
+	</style>
+
+	<!-- slickのJavaScript -->
+	<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+	<script type="text/javascript">
+		$(function () {
+			$(".slide-items").slick({
+				autoplay: true,
+				fade: true, // スライドをフェードイン・フェードアウト
+				cssEase: 'linear',// アニメーション
+				speed: 600, // フェードアニメーションの速度設定
+				arrows: true, // 矢印
+				dots: true, // インジケーター
+			});
+
+			$(".itemSlider").slick({
+				autoplay: true,
+				cssEase: 'linear',// アニメーション
+				speed: 600, // フェードアニメーションの速度設定
+				slidesToShow: 3, // 一度に表示するスライド数
+				arrows: true, // 矢印
+				dots: true, // インジケーター
+			});
+		});
+	</script>
+
+</body>
+
+</html>

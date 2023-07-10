@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmls:th = "http://www.thymeleaf.org"
+	th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
+<head>
+<meta charset="UTF-8">
+<title th:text="#{title.order.address.input}+' | '+ #{shop.title}"> </title>
+</head>
+<body>
+	<style>
+
+		.indent {
+	        padding-left: 3em;
+	    }
+	     
+		#button1 {
+			width: 150px;
+			height: 34px;
+			font-weight: bold;
+		}
+
+	</style>
+	
+	<div>
+		<h2 class="title" th:text="#{title.order.address.input}"></h2>
+		<p th:class="input_message" th:text="#{msg.order.address.input}"></p>
+	</div>
+	
+	<div class="indent">
+		<form th:action="@{/client/order/payment/input}" method="post" th:object="${orderForm}">
+			
+			<th:block th:if="${#fields.hasErrors()}">
+				<ul class="error_list_no_mark">
+					<li th:each="err:${#fields.detailedErrors()}" th:text="${err.message}"></li>
+				</ul>
+				<br />
+			</th:block>
+			
+			[[#{orderForm.postalCode}]]<br>
+			<input type = "text" th:field="*{postalCode}" /><br>
+			[[#{orderForm.address}]]<br>
+			<input type = "text" th:field="*{address}" /><br>
+			[[#{orderForm.name}]]<br>
+			<input type = "text" th:field="*{name}" /><br>
+			[[#{orderForm.phoneNumber}]]<br>
+			<input type = "text" th:field="*{phoneNumber}" /><br>
+			
+			<input type = "submit" value = "次へ" id="button1" />
+			<input type = "button" value = "戻る" id="button1" onclick="history.back()" />
+		</form>
+	</div>
+</body>
+</html>

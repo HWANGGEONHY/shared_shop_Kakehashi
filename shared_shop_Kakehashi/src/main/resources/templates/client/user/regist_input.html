@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
+
+<head>
+	<title th:text="#{user}+#{title.input.new}+' | '+ #{shop.title}"> </title>
+	<meta charset="UTF-8" />
+
+	<style>
+		.textarea {
+			resize: none;
+		}
+	</style>
+</head>
+
+<body>
+
+	<h2 th:class="title" th:text="#{user}+#{title.input}"></h2>
+	<p th:class="input_message" th:text="#{msg.regist.input}"></p>
+
+	<div class="user_info_form_area">
+
+		<form th:action="@{/client/user/regist/check}" method="post" class="user_info_form" th:object="${userForm}">
+
+			<th:block th:if="${#fields.hasErrors()}">
+				<ul class="error_list">
+					<li th:each="err:${#fields.detailedErrors()}" th:text="${err.message}"></li>
+				</ul>
+				<br />
+			</th:block>
+
+
+
+			<ul class="input_list">
+				<li>
+					<label><span class="input_title">[[#{userForm.email}]]　(半角英字)</span></label>
+					<input type="text" th:field="*{email}" />
+				</li>
+				<li>
+					<label><span class="input_title">[[#{userForm.password}]]　(8文字以上16文字以内半角英数字)</span></label>
+					<input type="password" th:field="*{password}" />
+				</li>
+				<li>
+					<label><span class="input_title">[[#{userForm.name}]]　(例：一般三郎)</span></label>
+					<input type="text" th:field="*{name}" />
+				</li>
+				<li>
+					<label><span class="input_title">[[#{userForm.postalCode}]]　(半角数字ハイフンなし)</span></label>
+					<input type="text" th:field="*{postalCode}" />
+				</li>
+				<li>
+					<label><span class="input_title">[[#{userForm.address}]]　(半角スペースなし)</span></label>
+					<textarea rows="6" th:field="*{address}"></textarea>
+				</li>
+				<li>
+					<label><span class="input_title">[[#{userForm.phoneNumber}]]　(半角数字)</span></label>
+					<input type="text" th:field="*{phoneNumber}" />
+				</li>
+
+			</ul>
+
+
+			<input type="submit" value="確認" class="send_button" />
+		</form>
+			<input type="submit" value="戻る" class="send_button" onclick="location.href='/shared_shop/'"/>
+		
+	</div>
+</body>
+
+</html>
