@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="layout(title,body)">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/layout.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/stylesheet.css}" />
+	<!--髙橋の編集
+	<link rel="stylesheet" type="text/css" th:href="@{/css/slick.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/slick-theme.css}"/>
+	<link rel="stylesheet" type="text/js" th:href="@{/js/slick.min.js}"/>
+	<link rel="stylesheet" type="text/js" th:href="@{/js/jquery-3.7.0.min.js}"/>
+	-->
+	<title th:replace="${title}"></title>
+</head>
+
+<body class="user">
+	<!--/* ヘッダー */-->
+	<header>
+		<div th:replace="~{common/header :: layout-header}"></div>
+	</header>
+	<!--/* ナビゲーションバー */-->
+	<nav th:if="${session.user == null or session.user.authority == 2}" class="navi_area">
+		<div th:replace="~{common/menu :: layout-menu}"></div>
+	</nav>
+	<div class="container">
+		<!--/* メイン */-->
+		<article class="main">
+			<div th:replace="${body}"></div>
+		</article>
+	</div>
+	<!--/* フッター */-->
+	<footer>
+		<div th:replace="~{common/footer :: layout-footer}"></div>
+	</footer>
+</body>
+
+</html>

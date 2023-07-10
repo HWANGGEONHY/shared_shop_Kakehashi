@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmls:th = "http://www.thymeleaf.org"
+	th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
+<head>
+<meta charset="UTF-8">
+<title th:text="#{title.order.payment.input}+' | '+ #{shop.title}"> </title>
+</head>
+<body>
+	<style>
+
+		.indent {
+	        padding-left: 3em;
+	    }
+	     
+		#button1 {
+			width: 150px;
+			height: 34px;
+			font-weight: bold;
+		}
+
+	</style>
+	
+	<div>
+		<h2 class="title" th:text="#{title.order.address.input}"></h2>
+		<p th:class="input_message" th:text="#{msg.order.payment.input}"></p>
+	</div>
+	
+	<div class="indent">
+		
+		<form th:action="@{/client/order/check}" method="post">
+			<input id="payment_method_select" type="radio" name="payment" value="1" checked>[[#{paymethod.credit.str}]]<br>
+			<input id="payment_method_select" type="radio" name="payment" value="2">[[#{paymethod.bank.str}]]<br>
+			<input id="payment_method_select" type="radio" name="payment" value="3">[[#{paymethod.onarrival.str}]]<br>
+			<input id="payment_method_select" type="radio" name="payment" value="4">[[#{paymethod.emoney.str}]]<br>
+			<input id="payment_method_select" type="radio" name="payment" value="5">[[#{paymethod.convenience.str}]]<br>
+			
+			<input type = "submit" value = "次へ" id="button1" />
+			<input type = "button" value = "戻る" id="button1" onclick="history.back()" />
+		</form>
+	</div>
+</body>
+</html>

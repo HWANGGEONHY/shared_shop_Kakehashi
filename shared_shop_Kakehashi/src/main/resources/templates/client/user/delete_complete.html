@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
+
+<head>
+	<title th:text="#{user}+#{title.quit.complete}+' | '+ #{shop.title}"> </title>
+	<meta charset="UTF-8" />
+</head>
+
+<body class="client user_delete_complete_client">
+	<h2 th:class="title" th:text="#{user}+#{title.delete.complete}"></h2>
+	<p th:class="complete_message" th:text="#{user}+#{msg.client.delete.complete}"></p>
+		<p class="complete_link"><a th:href="@{/}" th:text="#{msg.back.to.top}"></a></p>
+</body>
+</html>

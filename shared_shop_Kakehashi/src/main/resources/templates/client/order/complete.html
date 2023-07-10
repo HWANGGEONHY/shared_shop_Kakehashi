@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmls:th = "http://www.thymeleaf.org"
+	th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
+<head>
+<meta charset="UTF-8">
+<title th:text="#{title.order.complete}+' | '+ #{shop.title}"> </title>
+</head>
+<body>
+	<div>
+		<h2 class="title" th:text="#{title.order.complete}"></h2>
+		<p th:class="input_message" th:text="#{msg.order.complete1}"></p>
+		<p th:class="input_message" th:text="#{msg.order.complete2}"></p>
+	</div>
+	
+	<div>
+		<a th:href = "@{/}">[[#{msg.back.to.top}]]</a>
+	</div>
+</body>
+</html>

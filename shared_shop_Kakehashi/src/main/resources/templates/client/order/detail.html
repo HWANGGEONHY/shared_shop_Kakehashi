@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmls:th="http://www.thymeleaf.org" th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
+
+<head>
+	<meta charset="UTF-8">
+	<title th:text="#{title.order.detail}+' | '+ #{shop.title}"> </title>
+</head>
+
+<body>
+	<div>
+		<h2 class="title">
+			<span th:if="${sortType==1}" th:text="#{sort.latest.title}"></span>
+			<span th:if="${sortType==2 || sortType==null}" th:text="注文詳細"></span>
+		</h2>
+	</div>
+
+	<div>
+		<table th:each="order:${orders}" class="list_table item_list">
+			<tr>
+				<th>ご注文日</th>
+				<td th:text="${order.insertDate}"></td>
+			</tr>
+			<tr>
+				<th>お支払方法</th>
+				<td th:text="${payment}"></td>
+			</tr>
+			<tr>
+				<th>お届け先郵便番号</th>
+				<td th:text="${order.postalCode}"></td>
+			</tr>
+			<tr>
+				<th>お届け先住所</th>
+				<td th:text="${order.address}"></td>
+			</tr>
+			<tr>
+				<th>お届け先氏名</th>
+				<td th:text="${order.name}"></td>
+			</tr>
+			<tr>
+				<th>お届け先電話番号</th>
+				<td th:text="${order.phoneNumber}"></td>
+			</tr>
+		</table>
+	</div>
+
+	<div>
+		<table class="list_table item_list">
+			<tr>
+				<th>商品名</th>
+				<th>単価</th>
+				<th>数量</th>
+				<th>小計</th>
+			</tr>
+			<tr th:each="orderItem,stat:${orderItems}">
+				<td th:text="${orderItem.item.name}"></td>
+				<td th:text="${'\'+orderItem.price}"></td>
+				<td th:text="${orderItem.quantity}"></td>
+				<!-- 小計の計算ってhtml?java? -->
+				<td th:text="${'\'+subTotal.get(__${stat.index}__)}"></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<!-- 全体の合計を出す -->
+				<td>合計</td>
+				<td th:text="${'\'+total}"></td>
+			</tr>
+		</table>
+	</div>
+	
+	<div>
+		<input type = "button" value = "戻る" id="button1" onclick="history.back()" />
+	</div>
+</body>
+
+</html>

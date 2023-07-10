@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
+
+<head>
+	<title th:text="#{user}+#{title.input.complete}+' | '+ #{shop.title}"> </title>
+	<meta charset="UTF-8" />
+	<title>Insert title here</title>
+</head>
+
+<body class="client user_regist_complete_client">
+	<h2 th:class="title" th:text="#{user}+#{title.input.complete}"></h2>
+	<p class="complete_message" th:text="#{user}+#{msg.regist.complete}"></p>
+	<p class="complete_link"><a th:href="@{/}" th:text="#{top}"></a></p>
+
+</body>
+
+</html>
