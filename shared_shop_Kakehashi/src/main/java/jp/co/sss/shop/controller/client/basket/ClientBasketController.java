@@ -52,7 +52,7 @@ public class ClientBasketController {
 	}
 
 	@RequestMapping(path = "/client/basket/add", method = RequestMethod.POST)
-	String addBasketList(String page,Integer categoryId,String itemName,String t_select,HttpSession session, String t_img, Integer t_id, String t_name, Integer t_stock, Model model) {
+	String addBasketList(String page,Integer categoryId,String itemName,String t_select,HttpSession session, String t_img, Integer t_id, String t_name, Integer t_stock,Integer t_order, Model model) {
 
 		
 		if (itemrepository.findByIdOrderById(t_id).getStock() == 0) {
@@ -72,7 +72,7 @@ public class ClientBasketController {
 			bean.setId(t_id);
 			bean.setName(t_name);
 			bean.setStock(t_stock);
-			bean.setOrderNum(1);
+			bean.setOrderNum(t_order);
 			bean.setImage(t_img);
 			basketBean.add(bean);
 
@@ -90,12 +90,23 @@ public class ClientBasketController {
 			for (BasketBean basketBean2 : basketBean) {
 				if (basketBean2.getId() == t_id) {
 					Integer a = basketBean2.getOrderNum();
+					if(a + t_order > t_stock) {
+						model.addAttribute("message", 2);
+						model.addAttribute("page", page);
+						model.addAttribute("select", categoryId);
+						model.addAttribute("search", itemName);
+						model.addAttribute("t_select",t_select);
+						model.addAttribute("items", itemrepository.findByIdOrderById(t_id));
+						return "forward:/client/item/detail/" + t_id;
+						
+					}else {
 					basketBean2.setId(t_id);
 					basketBean2.setName(t_name);
 					basketBean2.setStock(t_stock);
 					bean.setImage(t_img);
-					basketBean2.setOrderNum(a + 1);
+					basketBean2.setOrderNum(a + t_order);
 					tf = false;
+					}
 				}
 			}
 			if (tf) {
@@ -103,13 +114,14 @@ public class ClientBasketController {
 				bean.setName(t_name);
 				bean.setStock(t_stock);
 				bean.setImage(t_img);
-				bean.setOrderNum(1);
+				bean.setOrderNum(t_order);
 				basketBean.add(bean);
 			}
 			session.setAttribute("baskets", basketBean);
 			model.addAttribute("baskets", session.getAttribute("baskets"));
 
 		}
+		model.addAttribute("message", 1);
 		model.addAttribute("page", page);
 		model.addAttribute("select", categoryId);
 		model.addAttribute("search", itemName);

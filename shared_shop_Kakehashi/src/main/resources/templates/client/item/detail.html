@@ -87,31 +87,50 @@
 
 		</form>
 	</th:block>
+	<form th:method="post" th:action="@{/client/item/list(page=${page},itemName=${search},categoryId=${select},t_select=${t_select})}">
+		<input th:type="submit" value="戻る" style="float: right"/>
+
+	</form>
 	<th:block th:if="${session.user != null}">
-		<form th:method="post" th:action="@{/client/basket/add(page=${page},itemName=${search},categoryId=${select},t_select=${t_select})}">
-			<input th:if="${messages!='在庫なし'}" id="button1" type="submit" onclick="clickDisplayAlert()"
-				value="買い物かごに入れる" />
-			<input type="hidden" th:value="${items.id}" name="t_id">
-			<input type="hidden" th:value="${items.name}" name="t_name">
-			<input type="hidden" th:value="${items.stock}" name="t_stock">
-			<input type="hidden" th:value="${items.image}" name="t_img">
-		</form>
+		<div style="float: right">
+			<form  name="count" th:method="post" th:action="@{/client/basket/add(page=${page},itemName=${search},categoryId=${select},t_select=${t_select})}">
+				<span>数量 : </span><input type="number" name="t_order" value="1" min="1" th:max="${items.stock}" oninput='handleOnInput(this, 3)' 	>
+				<input th:if="${messages!='在庫なし'}" id="button1" type="submit" onclick="clickDisplayAlert()"
+					value="買い物かごに入れる" />
+				<input type="hidden" th:value="${items.id}" name="t_id">
+				<input type="hidden" th:value="${items.name}" name="t_name">
+				<input type="hidden" th:value="${items.stock}" name="t_stock">
+				<input type="hidden" th:value="${items.image}" name="t_img">
+			</form>
+		</div>
 	</th:block>
-	<script>
-		function clickDisplayAlert() {
+	
+	<th:block th:if="${message == 1}">
+		<script>
 			alert("カートに追加されました");
-		}
+		</script>
+	</th:block>
+	<th:block th:if="${message == 2}">
+		<script>
+			alert("数量と在庫を確認して下さい。");
+		</script>
+	</th:block>
+	
+	<script>
+		
 		function loginCheck() {
 			alert('先に、ログインしてください。');
 					}
 		history.replaceState({}, null, location.pathname);
-	</script>
-	<form th:method="post" th:action="@{/client/item/list(page=${page},itemName=${search},categoryId=${select},t_select=${t_select})}">
-		<input th:type="submit" value="戻る" />
+		function handleOnInput(el, maxlength) {
+			  if(el.value.length > maxlength)  {
+			    el.value 
+			      = el.value.substr(0, maxlength);
+			  }
+			}
 
-	</form>
-			
-			
+	</script>
+
 		</div>
 	</table>
 	<style>

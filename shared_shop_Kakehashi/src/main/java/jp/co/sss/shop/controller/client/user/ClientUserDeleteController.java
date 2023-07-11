@@ -14,6 +14,8 @@ import jp.co.sss.shop.bean.UserBean;
 import jp.co.sss.shop.entity.User;
 import jp.co.sss.shop.form.UserForm;
 import jp.co.sss.shop.repository.FavoriteRepository;
+import jp.co.sss.shop.repository.OrderItemRepository;
+import jp.co.sss.shop.repository.OrderRepository;
 import jp.co.sss.shop.repository.UserRepository;
 
 @Controller
@@ -31,6 +33,12 @@ public class ClientUserDeleteController {
 	@Autowired
 	FavoriteRepository favoriteRetpository;
 
+	@Autowired
+	OrderRepository orderRepository;
+	
+	@Autowired
+	OrderItemRepository orderitemRepository;
+	
 	/**
 	 * セッション
 	 */
