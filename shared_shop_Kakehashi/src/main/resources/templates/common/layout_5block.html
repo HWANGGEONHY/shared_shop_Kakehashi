@@ -28,6 +28,12 @@
 		<!--/* メイン */-->
 		<article class="main">
 			<div th:replace="${body}"></div>
+			<a th:if="${session.user != null && session.user.authority == 2 && session.baskets != null}" th:href="@{/client/basket/list}">
+				<div style="position:fixed; top:90%; left:90%; background-color:#f0f8ff; ; width:50px; height:50px; border:2px solid skyblue; border-radius: 40px; z-index:1000;">
+					<img th:src="@{/images/kaimonokago.png}" style="height: 30px; width:30px; position:absolute; left:8px; top:10px;">
+					<div style="position: absolute; top:-6px; left:-11px; color:red; background-color: white; padding:1px 6px; border:1px solid red; border-radius: 20px;">[[${session.baskets.size()}]]</div>
+				</div>
+			</a>
 		</article>
 	</div>
 	<!--/* フッター */-->
