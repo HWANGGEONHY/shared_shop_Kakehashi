@@ -81,16 +81,19 @@
 				<!--田中-->
 
 			</ul>
-			<th:block th:if="${session.user == null}">
-		<form>
-			<input th:if="${messages!='在庫なし'}" id="button1" type="button" onclick="loginCheck()" value="買い物かごに入れる" />
+			
+		
 
+		<form th:method="post" th:action="@{/client/item/list(page=${page},itemName=${search},categoryId=${select},t_select=${t_select})}">
+			<input  th:type="submit" id="button1" value="戻る" style="float: right; margin-left: 10px; width: 50px"/>
 		</form>
-	</th:block>
-	<form th:method="post" th:action="@{/client/item/list(page=${page},itemName=${search},categoryId=${select},t_select=${t_select})}">
-		<input th:type="submit" value="戻る" style="float: right"/>
-
-	</form>
+		<th:block th:if="${session.user == null}">
+		<form>
+			<div style="float: right; height: 34px">
+				<input style="margin: 0px" th:if="${messages!='在庫なし'}" id="button1" type="button" onclick="loginCheck()" value="買い物かごに入れる" />
+			</div>
+		</form>
+		</th:block>
 	<th:block th:if="${session.user != null}">
 		<div style="float: right">
 			<form  name="count" th:method="post" th:action="@{/client/basket/add(page=${page},itemName=${search},categoryId=${select},t_select=${t_select})}">
@@ -112,7 +115,7 @@
 	</th:block>
 	<th:block th:if="${message == 2}">
 		<script>
-			alert("数量と在庫を確認して下さい。");
+			alert("買い物かごで数量と在庫を確認して下さい。");
 		</script>
 	</th:block>
 	

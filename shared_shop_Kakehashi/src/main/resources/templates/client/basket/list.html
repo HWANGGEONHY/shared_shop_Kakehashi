@@ -11,10 +11,7 @@
 <!--辛による編集2023/06/12-->
 
 <body class="user index">
-	<script>
-
-
-	</script>
+	
 	
 	<div>
 		<h2 class="title" th:text="買い物かご">
@@ -57,14 +54,39 @@
 				<td><a th:text="${basket.name}" th:href="@{/client/item/detail/{id}(id=*{basket.id})}" style="text-decoration: none;"></a></td>
 
 				<td th:text="${basket.stock}"></td>
-				<td th:text="${basket.orderNum}"></td>
-				<td>
+				<form th:action="@{/client/basket/update/{id}(id=${basket.id})}" method="post">
+					<td>
+						<input type="number" name="t_order" th:value="${basket.orderNum}" min="0" th:max="${basket.orderNum}" oninput='handleOnInput(this, 3)'
+						style="width: 40px"	>
+					</td>
+					<td>
+						<input type="submit" value="数量調節" class="delete"/>
+					</form>
 					<form th:action="@{/client/basket/delete/{id}(id=*{basket.id})}" method="post">
-						<input type="submit" value="削除" class="delete" onclick="conrim(削除)"/>
+						<input type="submit" value="削除" class="delete"/>
 					</form>
 				</td>
 			</tr>
 	</table>
+	<script>
+		function handleOnInput(el, maxlength) {
+			  if(el.value.length > maxlength)  {
+			    el.value 
+			      = el.value.substr(0, maxlength);
+			  }
+			}
+	</script>	
+	<th:block th:if="${message == 1}">
+		<script>
+			alert("変更されました。");
+		</script>
+	</th:block>
+	
+	<th:block th:if="${message == 2}">
+		<script>
+			alert("削除されました。");
+		</script>
+	</th:block>
 		<div th:if="!${#lists.isEmpty(baskets)}">
 		<form th:action="@{/client/order/address/input}" th:method="post">
 			<input type="submit" value="ご注文のお手続き" style="background-color: brown; color: white;">

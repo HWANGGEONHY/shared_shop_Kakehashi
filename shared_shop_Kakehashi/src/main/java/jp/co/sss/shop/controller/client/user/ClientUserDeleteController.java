@@ -34,10 +34,10 @@ public class ClientUserDeleteController {
 	FavoriteRepository favoriteRetpository;
 
 	@Autowired
-	OrderRepository orderRepository;
+	OrderItemRepository orderitemRepository;
 	
 	@Autowired
-	OrderItemRepository orderitemRepository;
+	OrderRepository orderRepository;
 	
 	/**
 	 * セッション
@@ -127,7 +127,7 @@ public class ClientUserDeleteController {
 
 		// 削除処理
 		userRepository.deleteById(id1);
-
+		
 //		// 会員情報を保存
 //		userRepository.save(user);
 

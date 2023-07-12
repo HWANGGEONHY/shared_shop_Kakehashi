@@ -130,6 +130,36 @@ public class ClientBasketController {
 		return "forward:/client/item/detail/" + t_id;
 	}
 
+	@RequestMapping(path = "/client/basket/update/{id}", method = RequestMethod.POST)
+	String updateBasketList(@PathVariable Integer id, Integer t_order ,HttpSession session, Model model) {
+		List<BasketBean> basketBean = (List<BasketBean>) session.getAttribute("baskets");
+
+		int a = 0;
+		for (int k = 0; k < basketBean.size(); k++) {
+			if (basketBean.get(k).getId() == id) {
+				a = k;
+				
+				int b= basketBean.get(a).getOrderNum();
+				
+				if(b>=t_order) {
+					basketBean.get(a).setOrderNum(t_order);
+					model.addAttribute("message", 1);
+				}
+				if(t_order==0) {
+					
+					basketBean.remove(a);
+					model.addAttribute("message", 2);
+				}
+			}
+
+		}
+		
+		session.setAttribute("baskets", basketBean);
+		model.addAttribute("baskets", session.getAttribute("baskets"));
+
+		return "/client/basket/list";
+	}
+	
 	@RequestMapping(path = "/client/basket/delete/{id}", method = RequestMethod.POST)
 	String deleteBasketList(@PathVariable Integer id, HttpSession session, Model model) {
 
@@ -143,18 +173,18 @@ public class ClientBasketController {
 
 		}
 		basketBean.remove(a);
-
+		model.addAttribute("message", 2);
 		session.setAttribute("baskets", basketBean);
 		model.addAttribute("baskets", session.getAttribute("baskets"));
 
-		return "redirect:/client/basket/list";
+		return "/client/basket/list";
 	}
 
 	@RequestMapping(path = "/client/basket/deleteAll", method = RequestMethod.POST)
 	String deleteAllBasketList(HttpSession session, Model model) {
 
 		session.setAttribute("baskets", null);
-
-		return "redirect:/client/basket/list";
+		model.addAttribute("message", 2);
+		return "/client/basket/list";
 	}
 }

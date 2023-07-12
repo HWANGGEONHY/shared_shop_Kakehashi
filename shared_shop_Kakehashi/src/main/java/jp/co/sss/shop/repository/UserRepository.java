@@ -1,5 +1,7 @@
 package jp.co.sss.shop.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -7,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.entity.User;
 import jp.co.sss.shop.util.JPQLConstant;
 
@@ -53,7 +56,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	User findByIdAndDeleteFlag(Integer id, int deleteFlg);
 	
 	
-	
+	@Query(value="update users\r\n"
+			+ "set delete_flag = 1\r\n"
+			+ "where id = :id1",nativeQuery = true) 
+	public void userDeleteFlagUpdate(@Param(value = "id1") Integer id1);
 	
 
 }
