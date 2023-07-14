@@ -135,19 +135,22 @@ public class ClientBasketController {
 		List<BasketBean> basketBean = (List<BasketBean>) session.getAttribute("baskets");
 
 		int a = 0;
+		
 		for (int k = 0; k < basketBean.size(); k++) {
-			if (basketBean.get(k).getId() == id) {
+			int count=basketBean.get(k).getId();
+			
+			if (count == id) {
 				a = k;
 				
-				int b= basketBean.get(a).getOrderNum();
+				int b= basketBean.get(k).getOrderNum();
 				
 				if(b>=t_order) {
-					basketBean.get(a).setOrderNum(t_order);
+					basketBean.get(k).setOrderNum(t_order);
 					model.addAttribute("message", 1);
 				}
 				if(t_order==0) {
 					
-					basketBean.remove(a);
+					basketBean.remove(k);
 					model.addAttribute("message", 2);
 				}
 			}
