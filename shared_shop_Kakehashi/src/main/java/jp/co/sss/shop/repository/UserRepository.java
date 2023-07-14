@@ -61,5 +61,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 			+ "where id = :id1",nativeQuery = true) 
 	public void userDeleteFlagUpdate(@Param(value = "id1") Integer id1);
 	
-
+	User findByEmailAndPhoneNumber(String email, String phoneNumber);
 }
