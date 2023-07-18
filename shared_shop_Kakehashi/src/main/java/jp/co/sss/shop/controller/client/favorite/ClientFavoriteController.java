@@ -15,6 +15,7 @@ import jp.co.sss.shop.bean.UserBean;
 import jp.co.sss.shop.entity.Favorite;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.entity.User;
+import jp.co.sss.shop.repository.CategoryRepository;
 import jp.co.sss.shop.repository.FavoriteRepository;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.repository.UserRepository;
@@ -38,6 +39,9 @@ public class ClientFavoriteController {
 	@Autowired
 	UserRepository userRepository;
 
+	@Autowired
+	CategoryRepository categoryRepository;
+	
 	@Autowired
 	HttpSession session;
 
@@ -68,6 +72,7 @@ public class ClientFavoriteController {
 					model.addAttribute("select", categoryId);
 					model.addAttribute("search", itemName);
 					model.addAttribute("t_select",t_select);
+					model.addAttribute("categories", categoryRepository.findAll());
 					return "forward:/client/item/detail/"+itemId;
 				} else {
 					Favorite newFavorite = new Favorite();
@@ -80,6 +85,7 @@ public class ClientFavoriteController {
 					model.addAttribute("select", categoryId);
 					model.addAttribute("search", itemName);
 					model.addAttribute("t_select",t_select);
+					model.addAttribute("categories", categoryRepository.findAll());
 					return "forward:/client/item/detail/"+itemId;
 				}
 			} catch (Exception e) {
@@ -111,6 +117,7 @@ public class ClientFavoriteController {
 					//return "redirect:"+returnUrl;
 					model.addAttribute("isAdd", true);
 					model.addAttribute("page", page);
+					model.addAttribute("categories", categoryRepository.findAll());
 					model.addAttribute("select", categoryId);
 					model.addAttribute("search", itemName);
 					model.addAttribute("t_select",t_select);
@@ -124,6 +131,7 @@ public class ClientFavoriteController {
 					model.addAttribute("isAdd", true);
 					model.addAttribute("page", page);
 					model.addAttribute("select", categoryId);
+					model.addAttribute("categories", categoryRepository.findAll());
 					model.addAttribute("search", itemName);
 					model.addAttribute("t_select",t_select);
 					return "forward:/client/item/list";
@@ -168,6 +176,7 @@ public class ClientFavoriteController {
 		model.addAttribute("select", categoryId);	
 		model.addAttribute("search", itemName);
 		model.addAttribute("t_select",t_select);
+		model.addAttribute("categories", categoryRepository.findAll());
 		return "forward:/client/item/detail/"+itemId;
 	}
 	
@@ -196,6 +205,7 @@ public class ClientFavoriteController {
 		model.addAttribute("select", categoryId);	
 		model.addAttribute("search", itemName);
 		model.addAttribute("t_select",t_select);
+		model.addAttribute("categories", categoryRepository.findAll());
 		return "forward:/client/item/list";
 	}
 	
@@ -225,6 +235,7 @@ public class ClientFavoriteController {
 		model.addAttribute("select", categoryId);	
 		model.addAttribute("search", itemName);
 		model.addAttribute("t_select",t_select);
+		model.addAttribute("categories", categoryRepository.findAll());
 		return "client/favorite/favorite_complete";
 	}
 	

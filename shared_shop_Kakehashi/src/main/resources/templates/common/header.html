@@ -71,7 +71,7 @@
 
 			<th:block th:if="${session.user == null}">
 				<div id="check" style="background-color:whitesmoke; width: 180px; height: 80px;
-					position: absolute; right: 0px; top: 100px; z-index: 100; display: none;">
+					position:relative; float:right; clear:right; z-index: 1000; display: none;">
 					<h4 style="color: gray; margin: 5px;">会員専用機能です。</h4>
 					<input type="button" name="login" value="ログイン" style="margin: 3px;"
 						onclick="location.href='/shared_shop/login'">
@@ -80,7 +80,7 @@
 
 				</div>
 				<div id="check1" style="background-color:whitesmoke ; width: 180px; height: 80px;
-					position: absolute; right: 20px; top: 100px; z-index: 100; display: none;">
+					 position:relative; float:right; clear:right; z-index: 1000; display: none;">
 					<h4 style="color: gray; margin: 5px;">会員専用機能です。</h4>
 					<input type="button" name="login" value="ログイン" style="margin: 3px;"
 						onclick="location.href='/shared_shop/login'">
