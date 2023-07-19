@@ -50,8 +50,6 @@ public class ClientUserFindPasswordController {
 	
 	@RequestMapping(path = "/client/user/findPassword/check2", method = RequestMethod.POST)
 	public String userFindPasswordCheck2(String email, String phoneNumber, String password, String password2, Model model) {
-		System.out.println(password+password2);
-		
 		User user = new User();
 		user = userRepository.findByEmailAndPhoneNumber(email, phoneNumber);
 		
@@ -65,7 +63,17 @@ public class ClientUserFindPasswordController {
 				
 			return "/client/user/find_password_check";
 		}
-		if(!(password.matches("[a-zA-Z0-9]")) && !(password.length() > 7) && !(password.length() < 17)) {
+		
+		if(password.length() < 8 || password.length() > 16) {
+			message = "パスワードは8文字以上16文字以内半角英数字です。";
+			
+			model.addAttribute("message", message);
+			model.addAttribute("user", user);
+			
+			return "/client/user/find_password_check";
+		}
+		
+		if(!password.matches("^[a-zA-Z0-9]+$")) {
 			message = "パスワードは8文字以上16文字以内半角英数字です。";
 			
 			model.addAttribute("message", message);
