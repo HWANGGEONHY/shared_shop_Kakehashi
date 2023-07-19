@@ -83,7 +83,6 @@ public class ClientUserFindPasswordController {
 		}
 		
 		user.setPassword(password);
-		
 		userRepository.save(user);
 		
 		return "redirect:/client/user/findPassword/complete";
