@@ -68,6 +68,7 @@ public class ClientFavoriteController {
 					add = favoriteRepository.save(add);
 					//return "redirect:"+returnUrl;
 					model.addAttribute("isAdd", true);
+					model.addAttribute("message", 3);
 					model.addAttribute("page", page);
 					model.addAttribute("select", categoryId);
 					model.addAttribute("search", itemName);
@@ -81,6 +82,7 @@ public class ClientFavoriteController {
 					favoriteRepository.save(newFavorite);
 					//return "redirect:"+returnUrl;
 					model.addAttribute("isAdd", true);
+					model.addAttribute("message", 3);
 					model.addAttribute("page", page);
 					model.addAttribute("select", categoryId);
 					model.addAttribute("search", itemName);
@@ -116,6 +118,7 @@ public class ClientFavoriteController {
 					add = favoriteRepository.save(add);
 					//return "redirect:"+returnUrl;
 					model.addAttribute("isAdd", true);
+					model.addAttribute("message", 3);
 					model.addAttribute("page", page);
 					model.addAttribute("categories", categoryRepository.findAll());
 					model.addAttribute("select", categoryId);
@@ -129,6 +132,7 @@ public class ClientFavoriteController {
 					favoriteRepository.save(newFavorite);
 					//return "redirect:"+returnUrl;
 					model.addAttribute("isAdd", true);
+					model.addAttribute("message", 3);
 					model.addAttribute("page", page);
 					model.addAttribute("select", categoryId);
 					model.addAttribute("categories", categoryRepository.findAll());
@@ -172,6 +176,7 @@ public class ClientFavoriteController {
 		}
 		//return "redirect:"+returnUrl;
 		model.addAttribute("isAdd", false);
+		model.addAttribute("message", 4);
 		model.addAttribute("page", page);
 		model.addAttribute("select", categoryId);	
 		model.addAttribute("search", itemName);
@@ -201,6 +206,7 @@ public class ClientFavoriteController {
 		}
 		//return "redirect:"+returnUrl;
 		model.addAttribute("isAdd", false);
+		model.addAttribute("message", 4);
 		model.addAttribute("page", page);
 		model.addAttribute("select", categoryId);	
 		model.addAttribute("search", itemName);
@@ -231,6 +237,7 @@ public class ClientFavoriteController {
 		}
 		//return "redirect:"+returnUrl;
 		model.addAttribute("isAdd", false);
+		model.addAttribute("message", 4);
 		model.addAttribute("page", page);
 		model.addAttribute("select", categoryId);	
 		model.addAttribute("search", itemName);
